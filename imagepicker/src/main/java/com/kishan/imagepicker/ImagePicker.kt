@@ -33,7 +33,7 @@ class ImagePicker(listener: MyInterface) : DialogFragment() {
     private var camera: String = "Camera"
     private var gallery: String = "Gallery"
     private var cancel: String = "Cancel"
-    private lateinit var typeface: Typeface
+    private var typeface: Typeface? = null
 
 
     /**
@@ -119,6 +119,8 @@ class ImagePicker(listener: MyInterface) : DialogFragment() {
             }
             if (granted) {
                 showPickerDialog()
+            } else {
+                dismiss()
             }
         }
 
@@ -145,6 +147,7 @@ class ImagePicker(listener: MyInterface) : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         _binding = LayoutPickerviewBinding.inflate(LayoutInflater.from(context))
+
         initView()
         val dialog = AlertDialog.Builder(requireContext())
             .setView(binding.root)
@@ -159,7 +162,8 @@ class ImagePicker(listener: MyInterface) : DialogFragment() {
     }
 
     private fun initView() {
-
+        if (typeface == null)
+            typeface = Typeface.createFromAsset(requireContext().assets, "roboto_regular.ttf")
         binding.tvCamera.text = camera
         binding.tvGallery.text = gallery
         binding.tvCancel.text = cancel
