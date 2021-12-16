@@ -14,6 +14,11 @@ class MainActivity : AppCompatActivity(), ImagePicker.MyInterface {
     }
 
     override fun getPath(path: String) {
+
+
+
+
+
         Log.d("TAG", "getPath: ---> $path")
     }
 }
